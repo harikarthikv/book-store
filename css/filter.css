@@ -1,0 +1,257 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&family=Ubuntu+Sans:ital,wght@0,100..800;1,100..800&display=swap');
+
+:root {
+  --primaryColor: #00FF73;
+  --secondaryColor: #000;
+  --white: #FFF;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  outline: none;
+  border: none;
+  text-decoration: none;
+  text-transform: capitalize;
+  transition: all 0.2s linear;
+}
+
+body {
+  font-family: 'Raleway', sans-serif;
+  background-color: #121212;
+  color: var(--white);
+}
+
+html {
+  font-size: 62.5%;
+  overflow-x: hidden;
+}
+
+/* Header */
+.main-header {
+  position: sticky;
+  top: 0;
+  background-color: var(--secondaryColor);
+  z-index: 999;
+  padding: 1.5rem 9%;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.logo {
+  font-family: 'Ubuntu Sans', sans-serif;
+  font-size: 2.5rem;
+  font-weight: bolder;
+  color: var(--white);
+}
+
+.logo i {
+  color: var(--primaryColor);
+}
+
+.nav-content {
+  display: flex;
+  align-items: center;
+}
+
+.menu {
+  display: flex;
+  list-style: none;
+  margin-right: 2rem;
+}
+
+.menu li a {
+  font-family: 'Ubuntu Sans', sans-serif;
+  font-size: 1.7rem;
+  padding: 0.5rem 1.5rem;
+  margin: 0 0.5rem;
+  color: var(--white);
+  text-decoration: none;
+}
+
+.menu li a:hover,
+.menu li a.active {
+  background-color: var(--primaryColor);
+  border-radius: 7px;
+}
+
+.icons,
+.icons a {
+  font-family: 'Ubuntu Sans', sans-serif;
+  color: var(--primaryColor);
+  font-size: 2.5rem;
+}
+
+.icons a:hover {
+  color: var(--primaryColor);
+  transform: scale(1.3);
+}
+
+#login-btn {
+  cursor: pointer;
+}
+
+/* Product */
+.container {
+  background-color: #121212;
+  display: flex;
+  color: #fff;
+}
+
+.sidebar {
+  flex: 1;
+  background-color: #141414;
+}
+
+/* Increase the sidebar "Search" text size */
+.sidebar .logo {
+  font-size: 3rem; /* Increased from 2.5rem */
+}
+
+/* Increase the search input text size */
+.sidebar input[type="text"] {
+  padding: 0.5rem;
+  width: 100%;
+  background-color: #121212;
+  border: 1px solid var(--primaryColor);
+  color: var(--white);
+  font-size: 1.8rem; /* Adjusted for larger text */
+}
+
+/* Increase placeholder text size for the search input */
+.sidebar input[type="text"]::placeholder {
+  font-size: 1.8rem;
+}
+
+.content {
+  flex: 4;
+  padding: 5rem 20rem;
+}
+
+.products {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.book-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+}
+
+.book-box {
+  background: rgba(0, 0, 0, 0.6);
+  padding: 2rem;
+  text-align: center;
+  border: 1.5px solid var(--primaryColor);
+  border-radius: 0.5rem;
+}
+
+.book-image {
+  height: 25rem;
+  margin-bottom: 1rem;
+  transition: transform 0.3s;
+  border-radius: 5px;
+}
+
+.book-image:hover {
+  transform: scale(0.9);
+}
+
+.book-title {
+  font-family: 'Ubuntu Sans', sans-serif;
+  font-size: 1.5rem;
+  margin: 1rem;
+}
+
+.book-price {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.book-price span {
+  text-decoration: line-through;
+  color: #ccc;
+}
+
+.btn {
+  font-family: 'Ubuntu Sans', sans-serif;
+  padding: 10px 20px;
+  border-radius: 0.5rem;
+  color: var(--white);
+  background: var(--primaryColor);
+  font-size: 1.5rem;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.btn:hover {
+  background-color: var(--secondaryColor);
+  color: var(--primaryColor);
+}
+
+/* Footer */
+.footer {
+  padding: 20px 0;
+  background-color: #1e1e1e;
+  text-align: center;
+}
+
+.footer-social {
+  margin-bottom: 20px;
+}
+
+.footer-social a {
+  font-size: 24px;
+  color: #fff;
+  margin: 0 10px;
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  border: 1px solid #3a3a3a;
+  border-radius: 50%;
+  background-color: #00ff73;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.footer-social a:hover {
+  background-color: #000000;
+  color: #00ff73;
+}
+
+.footer-list {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 20px;
+}
+
+.footer-list li {
+  display: inline-block;
+  margin: 0 10px;
+}
+
+.footer-list a {
+  text-decoration: none;
+  color: #b0b0b0;
+  font-size: 16px;
+  opacity: 0.8;
+  transition: opacity 0.3s;
+}
+
+.footer-list a:hover {
+  opacity: 1;
+}
+
+.footer-copyright {
+  font-size: 13px;
+  color: #707070;
+}

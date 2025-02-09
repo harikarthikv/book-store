@@ -1,0 +1,314 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&family=Ubuntu+Sans:ital,wght@0,100..800;1,100..800&display=swap');
+
+:root {
+  --primaryColor: #00FF73; 
+  --secondaryColor: #000; 
+  --thirdColor: #ff745c; 
+  --white: #FFF; 
+  --light-color: #808080; 
+  
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  outline: none;
+  border: none;
+  text-decoration: none;
+  text-transform: capitalize;
+  
+}
+
+body {
+  font-family: 'Raleway', sans-serif;
+  background-color: #121212;
+  color: var(--white);
+}
+
+html {
+  font-size: 62.5%;
+}
+
+/* Header */
+.main-header {
+  position: sticky;
+  top: 0;
+  background-color: var(--secondaryColor);
+  padding: 1%;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.logo {
+  font-family: 'Ubuntu Sans', sans-serif;
+  font-size: 2.5rem;
+  font-weight: bolder;
+  color: var(--white);
+}
+
+.logo i {
+  color: var(--primaryColor);
+}
+
+.nav-content {
+  display: flex;
+  align-items: center;
+}
+
+.menu {
+  display: flex;
+  list-style: none;
+  margin-right: 2rem;
+}
+
+.menu li a {
+  font-family: 'Ubuntu Sans', sans-serif;
+  font-size: 1.7rem;
+  padding: 0.5rem 1.5rem;
+  color: var(--white);
+}
+
+.menu li a:hover{
+  background-color: var(--primaryColor);
+  border-radius: 5px;
+}
+
+.icons a {
+  font-family: 'Ubuntu Sans', sans-serif;
+  color: var(--primaryColor);
+  font-size: 2.5rem;
+}
+
+/* Home Section */
+.home-section {
+  background: url(../img/banner-bg.jpg);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2rem;
+  height: 88vh;
+}
+
+.home-content {
+  flex: 1;
+  color: var(--white);
+}
+
+.books-images {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.books-images .book-image img {
+  height: 25rem;
+  margin-left: 1rem;
+  border-radius: 5px;
+}
+
+.books-images .book-image:hover img {
+  transform: scale(0.9);
+}
+
+.home-content h3 {
+  font-family: 'Ubuntu Sans', sans-serif;
+  font-size: 4.5rem;
+}
+
+.home-content p {
+  font-size: 1.5rem;
+  line-height: 2;
+  padding-bottom: 1.5rem;
+}
+
+.btn.btn-shop {
+  font-family: 'Ubuntu Sans', sans-serif;
+  padding: 10px 20px;
+  border-radius: 0.5rem;
+  color: var(--white);
+  background: var(--primaryColor);
+  font-size: 1.7rem;
+  cursor: pointer;
+  font-weight: 1000;
+}
+
+.btn.btn-shop:hover {
+  background-color: var(--secondaryColor);
+}
+
+/* Popular Section */
+.popular-section {
+  padding: 2rem;
+}
+
+.heading {
+  font-family: 'Ubuntu Sans', sans-serif;
+  font-size: 3rem;
+  text-align: left;
+  margin-bottom: 2rem;
+}
+
+.book-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.book-box {
+  background: rgba(0, 0, 0, 0.6);
+  padding: 2rem;
+  text-align: center;
+  border: 1.5px solid var(--primaryColor);
+  border-radius: 0.5rem;
+}
+
+.book-image {
+  height: 25rem;
+  margin-bottom: 1rem;
+  transition: transform 0.3s;
+  border-radius: 5px;
+}
+
+.book-image:hover {
+  transform: scale(0.9);
+}
+
+.book-title {
+  font-family: 'Ubuntu Sans', sans-serif;
+  font-size: 1.5rem;
+  margin: 1rem;
+}
+
+.book-price {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.book-price span {
+  text-decoration: line-through;
+  color: #ccc;
+}
+
+.btn {
+  font-family: 'Ubuntu Sans', sans-serif;
+  padding: 10px 20px;
+  border-radius: 0.5rem;
+  color: var(--white);
+  background: var(--primaryColor);
+  font-size: 1rem;
+  cursor: pointer;
+  font-weight: 500; 
+}
+
+.btn:hover {
+  background-color: var(--secondaryColor);
+  color: var(--primaryColor);
+}
+
+/* Member Section */
+.member-section {
+  padding: 1rem 2rem;
+  background-color: #121212; 
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.content {
+  flex: 1;
+  max-width: 50%;
+}
+
+.image {
+  flex: 1;
+  max-width: 45%;
+}
+
+.image img {
+  width: 100%;
+  height: auto;
+}
+
+.btn {
+  color: var(--white);
+  background: var(--primaryColor);
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+  margin-right: 0.5rem;
+  cursor: pointer;
+  font-size: 1.5rem;
+}
+
+.btn:hover {
+  background-color: var(--secondaryColor);
+  color: var(--primaryColor);
+}
+
+.btn.join-btn{
+  font-size: 2rem;
+}
+
+.content p {
+  color: #fff;
+  font-size: 1.5rem;
+  line-height: 2;
+  margin-bottom: 1rem;
+}
+
+/* Footer Section */
+.footer {
+  padding: 20px;
+  background-color: #1e1e1e;
+  text-align: center;
+}
+
+.footer-social {
+  margin-bottom: 20px;
+}
+
+.footer-social a {
+  font-size: 2rem;
+  color: #fff;
+  margin: 10px;
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  border-radius: 50%;
+  background-color: #00ff73;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.footer-social a:hover {
+  background-color: #000000;
+  color: #00ff73;
+}
+
+.footer-list {
+  margin-bottom: 20px;
+}
+
+.footer-list li {
+  display: inline-block;
+  margin: 0 10px;
+}
+
+.footer-list a {
+  color: #fff;
+  font-size: 16px;
+}
+
+.footer-copyright {
+  font-size: 12px;
+  color: #707070;
+}
