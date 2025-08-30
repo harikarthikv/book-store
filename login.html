@@ -3,39 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login|AI BOOKS</title>
-    <link rel="stylesheet" href="./css/login.css" />
-    <script src="https://kit.fontawesome.com/d87cab2480.js" crossorigin="anonymous"></script>
+    <title>Login - ReadRealm</title>
+    <link rel="stylesheet" href="./css/login.css">
+    <script src="https://kit.fontawesome.com/586eed86a7.js" crossorigin="anonymous"></script>
 </head>
+
 <body>
-    <div class="container">
+    <!-- Header -->
+    <header class="main-header">
+        <nav class="navbar">
+            <a href="index.html" class="logo">
+                <i class="fa-solid fa-book-open"></i> ReadRealm
+            </a>
+            <div class="nav-content">
+                <ul class="menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="filter.html">Books</a></li>
+                    <li><a href="cart.html">Cart</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    
+    <!-- Login Form -->
+    <main class="form-container">
         <div class="form-box">
-            <h1 id="title">Sign Up</h1>
-            <form id="signupForm">
-                <div class="input-grp">
-                    <div class="input-field" id="nameField">
-                        <i class="fa-solid fa-user-secret"></i>
-                        <input type="text" id="nameInput" placeholder="Name">
-                        <span class="error" id="nameError"></span> 
-                    </div>
-                    <div class="input-field">
-                        <i class="fa-regular fa-envelope"></i>
-                        <input type="email" id="emailInput" placeholder="Email">
-                        <span class="error" id="emailError"></span> 
-                    </div>
-                    <div class="input-field">
-                        <i class="fa-solid fa-key"></i>
-                        <input type="password" id="passwordInput" placeholder="Password">
-                        <span class="error" id="passwordError"></span> 
-                    </div>
+            <h2 class="form-title" id="form-title">Sign In</h2>
+            <form id="auth-form">
+                <div class="form-group" id="name-group" style="display: none;">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" placeholder="Enter your full name">
                 </div>
-                <div class="btn-field">
-                    <button type="submit" id="signupBtn">Sign up</button>
-                    <button type="button" id="signinBtn">Sign in</button>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" placeholder="Enter your email" required>
                 </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="Enter your password" required>
+                </div>
+                <button type="submit" class="btn form-btn" id="auth-btn">Sign In</button>
             </form>
+            <div class="form-link">
+                <p id="switch-text">Don't have an account? <a href="#" onclick="switchMode()">Sign Up</a></p>
+            </div>
         </div>
-    </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="js/login.js"></script>
 </body>
-<script src="js/login.js"></script>
 </html>

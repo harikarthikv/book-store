@@ -1,34 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Filter</title>
-  <link rel="stylesheet" href="css/filter.css" />
-  <script src="https://kit.fontawesome.com/586eed86a7.js" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Books - ReadRealm</title>
+    <link rel="stylesheet" href="css/filter.css">
+    <script src="https://kit.fontawesome.com/586eed86a7.js" crossorigin="anonymous"></script>
 </head>
+
 <body>
+    <!-- Header -->
+    <header class="main-header">
+        <nav class="navbar">
+            <a href="index.html" class="logo">
+                <i class="fa-solid fa-book-open"></i> ReadRealm
+            </a>
+            <div class="nav-content">
+                <ul class="menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="filter.html">Books</a></li>
+                    <li><a href="cart.html">Cart</a></li>
+                    <li><a href="login.html">Login</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
 
-
-  <section class="content-section">
-    <div class="container">
-      <div class="sidebar">
-        <div class="logo">Search</div>
-        <input type="text" id="txtSearch" placeholder="Search Product..." />
-      </div>
-      <div class="content">
-        <div class="products">
-          <div class="book-grid">
-            <!-- Book gets displayed here -->
-          </div>
+    <!-- Search Section -->
+    <main class="filter-section">
+        <div class="search-container">
+            <input 
+                type="text" 
+                id="txtSearch" 
+                class="search-input"
+                placeholder="Search for books..." 
+            />
         </div>
-      </div>
-    </div>
-  </section>
+        
+        <!-- Results -->
+        <div class="book-grid products">
+            <!-- Books populated by JavaScript -->
+        </div>
+    </main>
 
-  
-
-  <script src="js/filter.js"></script>
+    <!-- Scripts -->
+    <script src="js/books.js"></script>
+    <script src="js/filter.js"></script>
 </body>
 </html>
