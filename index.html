@@ -6,7 +6,9 @@
     <title>ReadRealm - Online Bookstore</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Custom CSS -->
+    <!-- Theme CSS -->
+    <link rel="stylesheet" href="./css/theme.css">
+    <!-- Page-specific CSS -->
     <link rel="stylesheet" href="./css/style.css">
     <!-- Font Awesome -->
     <script src="https://kit.fontawesome.com/586eed86a7.js" crossorigin="anonymous"></script>
@@ -45,7 +47,7 @@
                         </li>
                     </ul>
                     
-                    <div class="d-flex gap-3">
+                    <div class="d-flex gap-3 align-items-center">
                         <a href="filter.html" class="btn btn-outline-light btn-sm">
                             <i class="fa-solid fa-magnifying-glass"></i>
                         </a>
@@ -64,7 +66,7 @@
     <!-- Main Content -->
     <main style="padding-top: 80px;">
         <!-- Hero Section -->
-        <section class="py-5 bg-dark text-light" id="home">
+        <section class="py-5 text-light" id="home">
             <div class="container">
                 <div class="row align-items-center min-vh-50">
                     <div class="col-lg-6">
@@ -78,16 +80,10 @@
                         </div>
                     </div>
                     <div class="col-lg-6">
-                        <div class="row g-3">
-                            <div class="col-4">
-                                <img src="./img/book-1.png" alt="Featured Book 1" class="img-fluid rounded shadow"/>
-                            </div>
-                            <div class="col-4">
-                                <img src="./img/book-2.png" alt="Featured Book 2" class="img-fluid rounded shadow"/>
-                            </div>
-                            <div class="col-4">
-                                <img src="./img/book-3.png" alt="Featured Book 3" class="img-fluid rounded shadow"/>
-                            </div>
+                        <div class="book-showcase">
+                            <img src="./img/book-1.png" alt="Featured Book 1" class="img-fluid"/>
+                            <img src="./img/book-2.png" alt="Featured Book 2" class="img-fluid"/>
+                            <img src="./img/book-3.png" alt="Featured Book 3" class="img-fluid"/>
                         </div>
                     </div>
                 </div>
@@ -146,7 +142,8 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Custom Scripts -->
+    <!-- Core Scripts -->
+    <script src="js/utils.js"></script>
     <script src="js/books.js"></script>
     <script src="js/index.js"></script>
 </body>

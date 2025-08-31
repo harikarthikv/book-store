@@ -1,0 +1,194 @@
+/* =======================
+   DARK THEME ONLY SYSTEM
+   ======================= */
+
+/* Brand Colors */
+:root {
+  --readrealm-green: #1db954; /* Spotify green */
+  
+  /* Dark Theme Colors (Default) */
+  --bg-primary: #191414;
+  --bg-secondary: #121212;
+  --bg-tertiary: #2a2a2a;
+  --text-primary: #ffffff;
+  --text-secondary: #b3b3b3;
+  --text-muted: #535353;
+  --border-color: #282828;
+  --shadow-light: 0 2px 8px rgba(0, 0, 0, 0.4);
+  --shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.6);
+  --navbar-bg: #000000;
+  --card-bg: #181818;
+  --hero-bg: linear-gradient(135deg, #2a2a2a 0%, #191414 100%);
+}
+
+/* Global Theme Application */
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Navbar Theming */
+.navbar {
+  background-color: var(--navbar-bg) !important;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.navbar-brand, .nav-link {
+  color: var(--text-primary) !important;
+}
+
+.nav-link:hover {
+  color: var(--readrealm-green) !important;
+}
+
+/* Card Theming */
+.card {
+  background-color: var(--card-bg) !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-primary) !important;
+  box-shadow: var(--shadow-light);
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.card:hover {
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-2px);
+}
+
+/* Form Controls */
+.form-control {
+  background-color: var(--bg-secondary) !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-primary) !important;
+}
+
+.form-control:focus {
+  background-color: var(--bg-secondary) !important;
+  border-color: var(--readrealm-green) !important;
+  color: var(--text-primary) !important;
+  box-shadow: 0 0 0 0.2rem rgba(29, 185, 84, 0.25) !important;
+}
+
+.input-group-text {
+  background-color: var(--bg-tertiary) !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-secondary) !important;
+}
+
+/* Text Color Utilities */
+.text-muted {
+  color: var(--text-muted) !important;
+}
+
+.text-secondary {
+  color: var(--text-secondary) !important;
+}
+
+/* Button Styling */
+.btn-success, .bg-success {
+  background-color: var(--readrealm-green) !important;
+  border-color: var(--readrealm-green) !important;
+}
+
+.btn-success:hover {
+  background-color: #1ed760 !important;
+  border-color: #1ed760 !important;
+}
+
+/* Add to Cart Button Consistency */
+.add-to-cart-btn {
+  background-color: var(--readrealm-green) !important;
+  border-color: var(--readrealm-green) !important;
+  color: #ffffff !important;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.add-to-cart-btn:hover {
+  background-color: #1ed760 !important;
+  border-color: #1ed760 !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(29, 185, 84, 0.3);
+}
+
+/* Hero Section */
+#home {
+  background: var(--hero-bg) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Scrollbar Theming */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--text-muted);
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-secondary);
+}
+
+/* Modal Theming */
+.modal-content {
+  background-color: var(--card-bg) !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-primary) !important;
+}
+
+.modal-header {
+  border-bottom-color: var(--border-color) !important;
+}
+
+.modal-footer {
+  border-top-color: var(--border-color) !important;
+}
+
+/* Toast Theming */
+.toast {
+  background-color: var(--card-bg) !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Alert Theming */
+.alert {
+  background-color: var(--bg-secondary) !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Badge Theming */
+.badge {
+  background-color: var(--bg-tertiary) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Special Spotify-like Effects */
+.book-card {
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  border-radius: 8px !important;
+}
+
+.book-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+}
+
+/* Page Backgrounds */
+.bg-light {
+  background-color: var(--bg-secondary) !important;
+}
+
+/* Smooth transitions for all interactive elements */
+* {
+  transition: background-color 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              color 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              border-color 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}

@@ -1,5 +1,5 @@
-// Enhanced Bootstrap book filter
-class BootstrapBookFilter {
+// Book filter and search functionality
+class BookFilter {
     constructor() {
         this.books = typeof BOOKS_DATA !== 'undefined' ? BOOKS_DATA : [];
         this.filteredBooks = [...this.books];
@@ -86,7 +86,7 @@ class BootstrapBookFilter {
                                 <span class="h6 text-success mb-0">₹${book.price}</span>
                                 <span class="badge bg-light text-dark">${book.series}</span>
                             </div>
-                            <button class="btn btn-success btn-sm w-100" onclick="addToCart(${JSON.stringify(book).replace(/"/g, '&quot;')})">
+                            <button class="btn btn-success btn-sm w-100" onclick="CartManager.addItem(${JSON.stringify(book).replace(/"/g, '&quot;')})">
                                 <i class="fas fa-cart-plus me-2"></i>Add to Cart
                             </button>
                         </div>
@@ -96,8 +96,6 @@ class BootstrapBookFilter {
         `).join('');
 
         container.innerHTML = booksHTML;
-        
-        // Add hover effect
         this.addCardHoverEffects();
     }
 
@@ -113,56 +111,6 @@ class BootstrapBookFilter {
     }
 }
 
-// Enhanced cart functionality with Bootstrap notifications
-function addToCart(book) {
-    try {
-        let cart = JSON.parse(localStorage.getItem('cart') || '[]');
-        const existingItem = cart.find(item => item.name === book.name);
-        
-        if (existingItem) {
-            existingItem.quantity += 1;
-            showBootstrapNotification(`Updated quantity of "${book.name}" in cart!`, 'success');
-        } else {
-            cart.push({ ...book, quantity: 1, id: Date.now() });
-            showBootstrapNotification(`"${book.name}" added to cart!`, 'success');
-        }
-        
-        localStorage.setItem('cart', JSON.stringify(cart));
-    } catch (error) {
-        console.error('Error adding to cart:', error);
-        showBootstrapNotification('Failed to add book to cart', 'danger');
-    }
-}
-
-// Bootstrap toast notification system
-function showBootstrapNotification(message, type = 'success') {
-    const existingToasts = document.querySelectorAll('.toast');
-    existingToasts.forEach(toast => toast.remove());
-    
-    const toastHTML = `
-        <div class="toast align-items-center text-white bg-${type} border-0 position-fixed" 
-             style="top: 100px; right: 20px; z-index: 9999;" role="alert">
-            <div class="d-flex">
-                <div class="toast-body">
-                    <i class="fas fa-check-circle me-2"></i>${message}
-                </div>
-                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
-            </div>
-        </div>
-    `;
-    
-    document.body.insertAdjacentHTML('beforeend', toastHTML);
-    
-    const toastElement = document.querySelector('.toast:last-of-type');
-    const toast = new bootstrap.Toast(toastElement, { delay: 3000 });
-    toast.show();
-    
-    toastElement.addEventListener('hidden.bs.toast', () => {
-        toastElement.remove();
-    });
-}
-
-// Clear search function
 function clearSearch() {
     const searchInput = document.getElementById('txtSearch');
     if (searchInput) {
@@ -178,5 +126,5 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error('BOOKS_DATA not found. Make sure books.js is loaded.');
         return;
     }
-    new BootstrapBookFilter();
+    new BookFilter();
 });

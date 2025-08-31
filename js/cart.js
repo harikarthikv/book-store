@@ -1,12 +1,18 @@
-// Enhanced Bootstrap cart management
-let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+// Cart management functionality
+let cart = [];
 
-// Display cart items with Bootstrap styling
+document.addEventListener('DOMContentLoaded', () => {
+    loadCart();
+    displayCart();
+});
+
+function loadCart() {
+    cart = Storage.get('cart', []);
+}
+
 function displayCart() {
     const cartItemsContainer = document.getElementById('cart-items');
     const emptyCartEl = document.getElementById('empty-cart');
-    const subtotalEl = document.getElementById('subtotal');
-    const totalEl = document.getElementById('total');
     
     if (cart.length === 0) {
         cartItemsContainer.innerHTML = '';
@@ -44,15 +50,15 @@ function displayCart() {
                                             <strong class="h6">₹${itemTotal}</strong>
                                         </div>
                                         <div class="btn-group mb-2" role="group">
-                                            <button class="btn btn-outline-secondary btn-sm" onclick="updateQuantity('${item.id}', -1)">
+                                            <button class="btn btn-outline-secondary btn-sm" onclick="updateQuantity('${item.cartId}', -1)">
                                                 <i class="fas fa-minus"></i>
                                             </button>
                                             <span class="btn btn-outline-secondary btn-sm disabled">${item.quantity}</span>
-                                            <button class="btn btn-outline-secondary btn-sm" onclick="updateQuantity('${item.id}', 1)">
+                                            <button class="btn btn-outline-secondary btn-sm" onclick="updateQuantity('${item.cartId}', 1)">
                                                 <i class="fas fa-plus"></i>
                                             </button>
                                         </div>
-                                        <button class="btn btn-outline-danger btn-sm" onclick="removeFromCart('${item.id}')">
+                                        <button class="btn btn-outline-danger btn-sm" onclick="removeFromCart('${item.cartId}')">
                                             <i class="fas fa-trash me-1"></i>Remove
                                         </button>
                                     </div>
@@ -69,7 +75,6 @@ function displayCart() {
     updateCartTotals(total);
 }
 
-// Update cart totals
 function updateCartTotals(total) {
     const subtotalEl = document.getElementById('subtotal');
     const totalEl = document.getElementById('total');
@@ -78,48 +83,43 @@ function updateCartTotals(total) {
     if (totalEl) totalEl.textContent = `₹${total}`;
 }
 
-// Update item quantity
-function updateQuantity(itemId, change) {
-    const item = cart.find(item => item.id == itemId);
+function updateQuantity(cartId, change) {
+    const item = cart.find(item => item.cartId == cartId);
     if (item) {
         item.quantity += change;
         if (item.quantity <= 0) {
-            removeFromCart(itemId);
+            removeFromCart(cartId);
         } else {
-            localStorage.setItem('cart', JSON.stringify(cart));
+            Storage.set('cart', cart);
             displayCart();
-            showBootstrapNotification(`Updated quantity for "${item.name}"`, 'info');
+            NotificationManager.show(`Updated quantity for "${item.name}"`, 'info');
         }
     }
 }
 
-// Remove item from cart
-function removeFromCart(itemId) {
-    const item = cart.find(item => item.id == itemId);
+function removeFromCart(cartId) {
+    const item = cart.find(item => item.cartId == cartId);
     const itemName = item ? item.name : 'Item';
     
-    cart = cart.filter(item => item.id != itemId);
-    localStorage.setItem('cart', JSON.stringify(cart));
+    cart = cart.filter(item => item.cartId != cartId);
+    Storage.set('cart', cart);
     displayCart();
-    showBootstrapNotification(`"${itemName}" removed from cart`, 'warning');
+    NotificationManager.show(`"${itemName}" removed from cart`, 'warning');
 }
 
-// Clear entire cart with Bootstrap modal confirmation
 function clearCart() {
     if (cart.length === 0) {
-        showBootstrapNotification('Your cart is already empty', 'info');
+        NotificationManager.show('Your cart is already empty', 'info');
         return;
     }
     
-    // Create and show Bootstrap modal
     const modalHTML = `
         <div class="modal fade" id="clearCartModal" tabindex="-1">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">
-                            <i class="fas fa-exclamation-triangle text-warning me-2"></i>
-                            Clear Cart
+                            <i class="fas fa-exclamation-triangle text-warning me-2"></i>Clear Cart
                         </h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
@@ -141,24 +141,21 @@ function clearCart() {
     const modal = new bootstrap.Modal(document.getElementById('clearCartModal'));
     modal.show();
     
-    // Clean up modal after hiding
     document.getElementById('clearCartModal').addEventListener('hidden.bs.modal', () => {
         document.getElementById('clearCartModal').remove();
     });
 }
 
-// Confirm clear cart
 function confirmClearCart() {
     cart = [];
-    localStorage.removeItem('cart');
+    Storage.remove('cart');
     displayCart();
-    showBootstrapNotification('Cart cleared successfully', 'success');
+    NotificationManager.show('Cart cleared successfully');
 }
 
-// Enhanced checkout with Bootstrap modal
 function checkout() {
     if (cart.length === 0) {
-        showBootstrapNotification('Your cart is empty', 'warning');
+        NotificationManager.show('Your cart is empty', 'warning');
         return;
     }
     
@@ -171,8 +168,7 @@ function checkout() {
                 <div class="modal-content">
                     <div class="modal-header bg-success text-white">
                         <h5 class="modal-title">
-                            <i class="fas fa-credit-card me-2"></i>
-                            Checkout Confirmation
+                            <i class="fas fa-credit-card me-2"></i>Checkout Confirmation
                         </h5>
                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                     </div>
@@ -221,41 +217,9 @@ function checkout() {
     });
 }
 
-// Confirm checkout
 function confirmCheckout() {
-    showBootstrapNotification('Order placed successfully! Thank you for shopping with ReadRealm.', 'success');
+    NotificationManager.show('Order placed successfully! Thank you for shopping with ReadRealm.');
     cart = [];
-    localStorage.removeItem('cart');
+    Storage.remove('cart');
     displayCart();
 }
-
-// Bootstrap toast notification system
-function showBootstrapNotification(message, type = 'success') {
-    const existingToasts = document.querySelectorAll('.toast');
-    existingToasts.forEach(toast => toast.remove());
-    
-    const toastHTML = `
-        <div class="toast align-items-center text-white bg-${type} border-0 position-fixed" 
-             style="top: 100px; right: 20px; z-index: 9999;" role="alert">
-            <div class="d-flex">
-                <div class="toast-body">
-                    <i class="fas fa-check-circle me-2"></i>${message}
-                </div>
-                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
-            </div>
-        </div>
-    `;
-    
-    document.body.insertAdjacentHTML('beforeend', toastHTML);
-    
-    const toastElement = document.querySelector('.toast:last-of-type');
-    const toast = new bootstrap.Toast(toastElement, { delay: 4000 });
-    toast.show();
-    
-    toastElement.addEventListener('hidden.bs.toast', () => {
-        toastElement.remove();
-    });
-}
-
-// Initialize cart display
-document.addEventListener('DOMContentLoaded', displayCart);

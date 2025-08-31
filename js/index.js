@@ -1,116 +1,106 @@
-// Smooth scrolling for anchor links (Bootstrap navbar)
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            const navbarHeight = document.querySelector('.navbar').offsetHeight;
-            const targetPosition = target.offsetTop - navbarHeight;
-            window.scrollTo({ 
-                top: targetPosition, 
-                behavior: 'smooth' 
-            });
+// Initialize the homepage
+document.addEventListener("DOMContentLoaded", function () {
+  // Display popular books on page load
+  displayPopularBooks();
+
+  // Update cart count on page load
+  updateCartCount();
+
+  function displayPopularBooks() {
+    const popularBooksContainer = document.querySelector("#popular-books");
+    if (!popularBooksContainer) return;
+
+    // Get first 6 books for popular books section
+    const popularBooks = BOOKS_DATA.slice(0, 6);
+
+    popularBooksContainer.innerHTML = popularBooks
+      .map((book) => createBookCard(book))
+      .join("");
+
+    // Add event listeners to all add to cart buttons
+    document.querySelectorAll(".add-to-cart-btn").forEach((button) => {
+      button.addEventListener("click", function () {
+        const bookId = parseInt(this.dataset.bookId);
+        const book = BookUtils.getById(bookId);
+
+        if (book) {
+          CartManager.addItem(book);
+          updateCartCount();
+          NotificationManager.show(
+            `${book.name} has been added to your cart!`,
+            'success'
+          );
         }
+      });
     });
-});
+  }
 
-// Load popular books with Bootstrap cards
-document.addEventListener('DOMContentLoaded', () => {
-    const popularBooksContainer = document.getElementById('popular-books');
-    
-    if (popularBooksContainer && typeof BOOKS_DATA !== 'undefined') {
-        const booksHTML = BOOKS_DATA.slice(0, 6).map(book => `
-            <div class="col-md-6 col-lg-4">
-                <div class="card h-100 shadow-sm border-0 book-card">
-                    <img src="${book.img}" alt="${book.name}" class="card-img-top" style="height: 300px; object-fit: cover;"/>
-                    <div class="card-body d-flex flex-column">
-                        <h5 class="card-title text-truncate" title="${book.name}">${book.name}</h5>
-                        <p class="card-text text-muted small mb-2">by ${book.author}</p>
-                        <div class="mt-auto">
-                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                <span class="h5 text-success mb-0">₹${book.price}</span>
-                                <span class="badge bg-secondary">${book.series}</span>
-                            </div>
-                            <button class="btn btn-success w-100" onclick="addToCart(${JSON.stringify(book).replace(/"/g, '&quot;')})">
-                                <i class="fas fa-shopping-cart me-2"></i>Add to Cart
-                            </button>
-                        </div>
-                    </div>
-                </div>
+  function createBookCard(book) {
+    return `
+      <div class="col-lg-4 col-md-6 mb-4">
+        <div class="card book-card h-100">
+          <div class="card-img-container">
+            <img src="${book.img}" class="card-img-top book-img" alt="${book.name}">
+          </div>
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">${book.name}</h5>
+            <p class="card-text book-author">by ${book.author}</p>
+            <p class="card-text book-series">${book.series} Series</p>
+            <div class="mt-auto d-flex justify-content-between align-items-center">
+              <span class="book-price">₹${book.price}</span>
+              <button class="btn btn-success add-to-cart-btn" data-book-id="${book.id}">
+                <i class="fas fa-cart-plus"></i> Add to Cart
+              </button>
             </div>
-        `).join('');
-        
-        popularBooksContainer.innerHTML = booksHTML;
-    }
-});
-
-// Enhanced cart functionality with Bootstrap notifications
-function addToCart(book) {
-    try {
-        let cart = JSON.parse(localStorage.getItem('cart') || '[]');
-        const existingItem = cart.find(item => item.name === book.name);
-        
-        if (existingItem) {
-            existingItem.quantity += 1;
-            showBootstrapNotification(`Updated quantity of "${book.name}" in cart!`, 'success');
-        } else {
-            cart.push({ ...book, quantity: 1, id: Date.now() });
-            showBootstrapNotification(`"${book.name}" added to cart!`, 'success');
-        }
-        
-        localStorage.setItem('cart', JSON.stringify(cart));
-        updateCartCount();
-    } catch (error) {
-        console.error('Error adding to cart:', error);
-        showBootstrapNotification('Failed to add book to cart', 'danger');
-    }
-}
-
-// Bootstrap toast notification system
-function showBootstrapNotification(message, type = 'success') {
-    // Remove existing toasts
-    const existingToasts = document.querySelectorAll('.toast');
-    existingToasts.forEach(toast => toast.remove());
-    
-    const toastHTML = `
-        <div class="toast align-items-center text-white bg-${type} border-0 position-fixed" 
-             style="top: 100px; right: 20px; z-index: 9999;" role="alert">
-            <div class="d-flex">
-                <div class="toast-body">
-                    <i class="fas fa-check-circle me-2"></i>${message}
-                </div>
-                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
-            </div>
+          </div>
         </div>
+      </div>
     `;
+  }
+
+  function updateCartCount() {
+    const cart = CartManager.getCart();
+    const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+    const cartCountElements = document.querySelectorAll(".cart-count");
     
-    document.body.insertAdjacentHTML('beforeend', toastHTML);
-    
-    // Show the toast
-    const toastElement = document.querySelector('.toast:last-of-type');
-    const toast = new bootstrap.Toast(toastElement, { delay: 3000 });
-    toast.show();
-    
-    // Remove from DOM after hiding
-    toastElement.addEventListener('hidden.bs.toast', () => {
-        toastElement.remove();
+    cartCountElements.forEach(element => {
+      element.textContent = cartCount;
+      element.style.display = cartCount > 0 ? "inline" : "none";
     });
-}
-
-// Update cart count in navbar
-function updateCartCount() {
-    const cart = JSON.parse(localStorage.getItem('cart') || '[]');
-    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
     
-    // Add badge to cart icon if items exist
-    const cartLink = document.querySelector('a[href="cart.html"]');
-    if (cartLink && totalItems > 0) {
-        cartLink.innerHTML = `
-            <i class="fa-solid fa-cart-flatbed"></i>
-            <span class="badge bg-success rounded-pill ms-1">${totalItems}</span>
-        `;
-    }
-}
+    // Also update cart display using the existing method
+    CartManager.updateCartDisplay();
+  }
 
-// Initialize cart count on page load
-document.addEventListener('DOMContentLoaded', updateCartCount);
+  // Smooth scrolling for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({
+          behavior: 'smooth'
+        });
+      }
+    });
+  });
+
+  // Back to top button
+  const backToTopBtn = document.querySelector('#backToTop');
+  if (backToTopBtn) {
+    window.addEventListener('scroll', function () {
+      if (window.scrollY > 300) {
+        backToTopBtn.style.display = 'block';
+      } else {
+        backToTopBtn.style.display = 'none';
+      }
+    });
+
+    backToTopBtn.addEventListener('click', function () {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  }
+});
