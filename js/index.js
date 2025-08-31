@@ -1,36 +1,41 @@
-// Mobile Menu Toggle
-const mobileMenuToggle = document.getElementById('mobileMenuToggle');
-const menu = document.getElementById('menu');
-
-mobileMenuToggle?.addEventListener('click', () => {
-    mobileMenuToggle.classList.toggle('active');
-    menu.classList.toggle('active');
-});
-
-// Smooth scrolling for anchor links
+// Smooth scrolling for anchor links (Bootstrap navbar)
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
         const target = document.querySelector(this.getAttribute('href'));
-        target?.scrollIntoView({ behavior: 'smooth' });
+        if (target) {
+            const navbarHeight = document.querySelector('.navbar').offsetHeight;
+            const targetPosition = target.offsetTop - navbarHeight;
+            window.scrollTo({ 
+                top: targetPosition, 
+                behavior: 'smooth' 
+            });
+        }
     });
 });
 
-// Load popular books
+// Load popular books with Bootstrap cards
 document.addEventListener('DOMContentLoaded', () => {
     const popularBooksContainer = document.getElementById('popular-books');
     
     if (popularBooksContainer && typeof BOOKS_DATA !== 'undefined') {
         const booksHTML = BOOKS_DATA.slice(0, 6).map(book => `
-            <div class="book-box">
-                <img src="${book.img}" alt="${book.name}" class="book-image" />
-                <h3 class="book-title">${book.name}</h3>
-                <div class="book-price">Rs.${book.price}</div>
-                <div class="book-actions">
-                    <button class="btn add-to-cart-btn" onclick="addToCart(${JSON.stringify(book).replace(/"/g, '&quot;')})">
-                        <i class="fas fa-shopping-cart"></i>
-                        Add to Cart
-                    </button>
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 shadow-sm border-0 book-card">
+                    <img src="${book.img}" alt="${book.name}" class="card-img-top" style="height: 300px; object-fit: cover;"/>
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title text-truncate" title="${book.name}">${book.name}</h5>
+                        <p class="card-text text-muted small mb-2">by ${book.author}</p>
+                        <div class="mt-auto">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="h5 text-success mb-0">₹${book.price}</span>
+                                <span class="badge bg-secondary">${book.series}</span>
+                            </div>
+                            <button class="btn btn-success w-100" onclick="addToCart(${JSON.stringify(book).replace(/"/g, '&quot;')})">
+                                <i class="fas fa-shopping-cart me-2"></i>Add to Cart
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         `).join('');
@@ -39,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// Simple cart functionality
+// Enhanced cart functionality with Bootstrap notifications
 function addToCart(book) {
     try {
         let cart = JSON.parse(localStorage.getItem('cart') || '[]');
@@ -47,41 +52,65 @@ function addToCart(book) {
         
         if (existingItem) {
             existingItem.quantity += 1;
+            showBootstrapNotification(`Updated quantity of "${book.name}" in cart!`, 'success');
         } else {
             cart.push({ ...book, quantity: 1, id: Date.now() });
+            showBootstrapNotification(`"${book.name}" added to cart!`, 'success');
         }
         
         localStorage.setItem('cart', JSON.stringify(cart));
-        showNotification('Book added to cart!');
+        updateCartCount();
     } catch (error) {
         console.error('Error adding to cart:', error);
-        showNotification('Failed to add book to cart');
+        showBootstrapNotification('Failed to add book to cart', 'danger');
     }
 }
 
-// Simple notification system
-function showNotification(message) {
-    const notification = document.createElement('div');
-    notification.style.cssText = `
-        position: fixed; top: 20px; right: 20px;
-        background: var(--primary); color: var(--bg-primary);
-        padding: 1rem 2rem; border-radius: var(--border-radius);
-        box-shadow: var(--shadow); z-index: 10000;
-        opacity: 0; transform: translateX(100%);
-        transition: var(--transition);
+// Bootstrap toast notification system
+function showBootstrapNotification(message, type = 'success') {
+    // Remove existing toasts
+    const existingToasts = document.querySelectorAll('.toast');
+    existingToasts.forEach(toast => toast.remove());
+    
+    const toastHTML = `
+        <div class="toast align-items-center text-white bg-${type} border-0 position-fixed" 
+             style="top: 100px; right: 20px; z-index: 9999;" role="alert">
+            <div class="d-flex">
+                <div class="toast-body">
+                    <i class="fas fa-check-circle me-2"></i>${message}
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+            </div>
+        </div>
     `;
-    notification.textContent = message;
     
-    document.body.appendChild(notification);
+    document.body.insertAdjacentHTML('beforeend', toastHTML);
     
-    setTimeout(() => {
-        notification.style.opacity = '1';
-        notification.style.transform = 'translateX(0)';
-    }, 100);
+    // Show the toast
+    const toastElement = document.querySelector('.toast:last-of-type');
+    const toast = new bootstrap.Toast(toastElement, { delay: 3000 });
+    toast.show();
     
-    setTimeout(() => {
-        notification.style.opacity = '0';
-        notification.style.transform = 'translateX(100%)';
-        setTimeout(() => notification.remove(), 300);
-    }, 3000);
+    // Remove from DOM after hiding
+    toastElement.addEventListener('hidden.bs.toast', () => {
+        toastElement.remove();
+    });
 }
+
+// Update cart count in navbar
+function updateCartCount() {
+    const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+    
+    // Add badge to cart icon if items exist
+    const cartLink = document.querySelector('a[href="cart.html"]');
+    if (cartLink && totalItems > 0) {
+        cartLink.innerHTML = `
+            <i class="fa-solid fa-cart-flatbed"></i>
+            <span class="badge bg-success rounded-pill ms-1">${totalItems}</span>
+        `;
+    }
+}
+
+// Initialize cart count on page load
+document.addEventListener('DOMContentLoaded', updateCartCount);

@@ -4,41 +4,109 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shopping Cart - ReadRealm</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="css/cart.css">
+    <!-- Font Awesome -->
     <script src="https://kit.fontawesome.com/586eed86a7.js" crossorigin="anonymous"></script>
 </head>
 
-<body>
+<body class="bg-light">
     <!-- Header -->
-    <header class="main-header">
-        <nav class="navbar">
-            <a href="index.html" class="logo">
-                <i class="fa-solid fa-book-open"></i> ReadRealm
-            </a>
-            <div class="nav-content">
-                <ul class="menu">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="filter.html">Books</a></li>
-                    <li><a href="login.html">Login</a></li>
-                </ul>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+                <a class="navbar-brand fw-bold" href="index.html">
+                    <i class="fa-solid fa-book-open text-success me-2"></i> ReadRealm
+                </a>
+                
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="filter.html">Books</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="cart.html">Cart</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="login.html">Login</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </nav>
     </header>
 
     <!-- Cart Content -->
-    <main class="cart-section">
-        <div class="cart-container">
-            <h2 class="heading">Your Shopping Cart</h2>
-            <div id="cart-items"></div>
-            <div class="cart-total" id="cart-total">
-                <h3>Total: Rs.0</h3>
-                <button class="btn" onclick="checkout()">Checkout</button>
-                <button class="btn btn-secondary" onclick="clearCart()">Clear Cart</button>
+    <main class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="card shadow-sm">
+                        <div class="card-header bg-success text-white">
+                            <h3 class="mb-0">
+                                <i class="fa-solid fa-cart-shopping me-2"></i>Your Shopping Cart
+                            </h3>
+                        </div>
+                        <div class="card-body">
+                            <div id="cart-items">
+                                <!-- Cart items will be populated by JavaScript -->
+                                <div class="text-center py-5 text-muted" id="empty-cart">
+                                    <i class="fa-solid fa-cart-plus fa-3x mb-3"></i>
+                                    <h5>Your cart is empty</h5>
+                                    <p>Add some books to get started!</p>
+                                    <a href="filter.html" class="btn btn-success">Browse Books</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4">
+                    <div class="card shadow-sm">
+                        <div class="card-header bg-dark text-white">
+                            <h4 class="mb-0">Order Summary</h4>
+                        </div>
+                        <div class="card-body" id="cart-total">
+                            <div class="d-flex justify-content-between mb-3">
+                                <span>Subtotal:</span>
+                                <span id="subtotal">Rs.0</span>
+                            </div>
+                            <div class="d-flex justify-content-between mb-3">
+                                <span>Shipping:</span>
+                                <span class="text-success">Free</span>
+                            </div>
+                            <hr>
+                            <div class="d-flex justify-content-between mb-4">
+                                <strong>Total: <span id="total">Rs.0</span></strong>
+                            </div>
+                            
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-success btn-lg" onclick="checkout()">
+                                    <i class="fa-solid fa-credit-card me-2"></i>Checkout
+                                </button>
+                                <button class="btn btn-outline-danger" onclick="clearCart()">
+                                    <i class="fa-solid fa-trash me-2"></i>Clear Cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </main>
 
-    <!-- Scripts -->
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom Scripts -->
     <script src="js/cart.js"></script>
 </body>
 </html>

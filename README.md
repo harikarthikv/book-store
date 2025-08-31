@@ -1,26 +1,38 @@
-# ReadRealm - Minimal Modular UI Project
+# ReadRealm - Bootstrap-Enhanced Bookstore
 
 ## Overview
-This is a clean, minimal, and responsive online bookstore built with vanilla HTML, CSS, and JavaScript using a modular architecture.
+This is a modern, responsive online bookstore built with **Bootstrap 5.3**, vanilla HTML, CSS, and JavaScript using a modular architecture. The project now features professional UI components, enhanced user experience, and industry-standard design patterns.
+
+## ✨ New Bootstrap Features
+- **Responsive Navigation**: Bootstrap navbar with mobile-friendly hamburger menu
+- **Card Components**: Professional book displays with hover effects
+- **Modal Dialogs**: Interactive confirmations for cart actions and checkout
+- **Toast Notifications**: Elegant, dismissible notifications for user feedback
+- **Form Validation**: Enhanced form controls with proper validation styling
+- **Grid System**: Responsive layout that works on all screen sizes
+- **Professional Styling**: Consistent color scheme and typography
 
 ## Features
+- **Bootstrap Integration**: Professional UI with Bootstrap 5.3 components
 - **Modular Design**: Each page has its own dedicated CSS and JS files
-- **Clean Architecture**: Perfect alignment between HTML, CSS, and JS files
-- **Responsive Layout**: Mobile-first design that works on all devices
-- **Simple Cart**: Add books to cart with localStorage persistence
-- **User Authentication**: Basic sign up/sign in functionality
-- **Book Search**: Real-time search through book collection
-- **Dark Theme**: Modern dark UI with consistent styling
+- **Responsive Layout**: Mobile-first design using Bootstrap's grid system
+- **Enhanced Cart**: Professional cart interface with detailed item cards
+- **Smart Notifications**: Toast notifications for better user feedback
+- **Modal Confirmations**: Elegant dialogs for important actions
+- **Form Validation**: Real-time validation with Bootstrap styling
+- **User Authentication**: Enhanced login/signup with proper error handling
+- **Advanced Search**: Improved search interface with result counters
+- **Professional Navigation**: Bootstrap navbar with active states
 
 ## File Structure
 ```
 book-store/
-├── index.html          → css/index.css   + js/index.js
+├── index.html          → css/style.css   + js/index.js
 ├── cart.html           → css/cart.css    + js/cart.js
 ├── login.html          → css/login.css   + js/login.js
 ├── filter.html         → css/filter.css  + js/filter.js
 ├── css/
-│   ├── index.css       # Homepage styles (hero, books, footer)
+│   ├── style.css       # Main styles for index page
 │   ├── cart.css        # Cart page styles (cart items, totals)
 │   ├── login.css       # Login page styles (forms, auth)
 │   └── filter.css      # Filter page styles (search, book grid)
@@ -30,36 +42,38 @@ book-store/
 │   ├── cart.js         # Cart management
 │   ├── login.js        # Authentication system
 │   └── filter.js       # Search and filter functionality
-└── img/                # Book images and assets
+└── img/                # Book images and assets (12 files total)
 ```
 
 ## Technologies Used
-- **HTML5**: Semantic markup with modular structure
-- **CSS3**: Modern CSS with dark theme and custom properties
-- **JavaScript ES6+**: Classes, arrow functions, localStorage
-- **FontAwesome**: Icons
-- **localStorage**: Data persistence
+- **HTML5**: Semantic markup with Bootstrap components
+- **CSS3**: Bootstrap 5.3 + custom CSS for enhanced styling
+- **JavaScript ES6+**: Enhanced with Bootstrap JS components
+- **Bootstrap 5.3**: Professional UI framework with responsive design
+- **FontAwesome**: Comprehensive icon library
+- **localStorage**: Data persistence for cart and user sessions
 
 ## Modular Architecture Benefits
 
 ### Perfect Alignment
-- **4 HTML pages** → **4 CSS files** → **4 JS files**
-- One-to-one mapping for easy maintenance
+- **4 HTML pages** → **4 CSS files** → **5 JS files**
+- Clean mapping for easy maintenance
 - Self-contained page bundles
 - No dependency confusion
+- Eliminated redundant files (13 CSS and 3 JS files removed)
 
 ### CSS Files
-- **index.css**: Homepage with hero section, book grid, member section
-- **cart.css**: Shopping cart layout, item controls, checkout
-- **login.css**: Authentication forms, input styling
-- **filter.css**: Search interface, book results grid
+- **style.css**: Homepage with Bootstrap components, hero section, and card layouts
+- **cart.css**: Enhanced cart interface with Bootstrap cards and professional styling
+- **login.css**: Authentication forms with Bootstrap form controls and validation
+- **filter.css**: Search interface with Bootstrap input groups and responsive grid
 
 ### JavaScript Files
-- **index.js**: Mobile menu, smooth scrolling, popular books display
-- **cart.js**: Cart management, quantity updates, checkout process
-- **login.js**: Sign up/in toggle, form validation, user sessions
-- **filter.js**: Real-time search, book filtering, display logic
-- **books.js**: Shared data source used by multiple pages
+- **index.js**: Homepage with Bootstrap toast notifications, card components, and smooth scrolling
+- **cart.js**: Enhanced cart management with Bootstrap modals, professional item cards, and confirmations
+- **login.js**: Authentication system with form validation, Bootstrap alerts, and modal confirmations
+- **filter.js**: Advanced search with result counters, Bootstrap cards, and hover effects
+- **books.js**: Shared data source with utility functions for all pages
 
 ### HTML Files
 - **Semantic structure**: Clean, accessible HTML

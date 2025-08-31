@@ -4,46 +4,117 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Search Books - ReadRealm</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="css/filter.css">
+    <!-- Font Awesome -->
     <script src="https://kit.fontawesome.com/586eed86a7.js" crossorigin="anonymous"></script>
 </head>
 
-<body>
+<body class="bg-light">
     <!-- Header -->
-    <header class="main-header">
-        <nav class="navbar">
-            <a href="index.html" class="logo">
-                <i class="fa-solid fa-book-open"></i> ReadRealm
-            </a>
-            <div class="nav-content">
-                <ul class="menu">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="filter.html">Books</a></li>
-                    <li><a href="cart.html">Cart</a></li>
-                    <li><a href="login.html">Login</a></li>
-                </ul>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+                <a class="navbar-brand fw-bold" href="index.html">
+                    <i class="fa-solid fa-book-open text-success me-2"></i> ReadRealm
+                </a>
+                
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="filter.html">Books</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="cart.html">Cart</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="login.html">Login</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </nav>
     </header>
 
     <!-- Search Section -->
-    <main class="filter-section">
-        <div class="search-container">
-            <input 
-                type="text" 
-                id="txtSearch" 
-                class="search-input"
-                placeholder="Search for books..." 
-            />
-        </div>
-        
-        <!-- Results -->
-        <div class="book-grid products">
-            <!-- Books populated by JavaScript -->
+    <main class="py-5">
+        <div class="container">
+            <!-- Search Header -->
+            <div class="row mb-4">
+                <div class="col-12">
+                    <div class="card shadow-sm">
+                        <div class="card-body bg-success text-white">
+                            <h2 class="card-title mb-3">
+                                <i class="fa-solid fa-search me-2"></i>Search Books
+                            </h2>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="input-group input-group-lg">
+                                        <span class="input-group-text bg-light">
+                                            <i class="fa-solid fa-magnifying-glass text-success"></i>
+                                        </span>
+                                        <input 
+                                            type="text" 
+                                            id="txtSearch" 
+                                            class="form-control"
+                                            placeholder="Search by title, author, or series..." 
+                                        />
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mt-2 mt-md-0">
+                                    <button class="btn btn-light btn-lg w-100" onclick="clearSearch()">
+                                        <i class="fa-solid fa-times me-2"></i>Clear
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Search Results -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h4 class="mb-0" id="results-count">All Books</h4>
+                        <span class="badge bg-success fs-6" id="book-count">10 books</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Books Grid -->
+            <div class="row g-4 products" id="book-results">
+                <!-- Books populated by JavaScript -->
+            </div>
+            
+            <!-- No Results Message -->
+            <div class="row d-none" id="no-results">
+                <div class="col-12 text-center py-5">
+                    <div class="card">
+                        <div class="card-body">
+                            <i class="fa-solid fa-book-open fa-3x text-muted mb-3"></i>
+                            <h4 class="text-muted">No books found</h4>
+                            <p class="text-muted">Try different search terms or browse all books</p>
+                            <button class="btn btn-success" onclick="clearSearch()">Show All Books</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
 
-    <!-- Scripts -->
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom Scripts -->
     <script src="js/books.js"></script>
     <script src="js/filter.js"></script>
 </body>
